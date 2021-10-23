@@ -25,22 +25,28 @@ promptFight = promptFight.toLowerCase();
     // if yes (true), leave fight
     if (confirmSkip) {
       window.alert(playerInfo.name + ' has decided to skip this fight. Goodbye!');
-      // subtract money from playerInfo.money for skipping
+      // subtract money from playerInfo.money for skipping, but don't let them go into the negative
       playerInfo.money = Math.max(0, playerInfo.money - 10);
-      shop();
+      
+      // return true if player wants to leave
+      return true;
     }
-  
-}
+  }
+  return false;
+};
 
 // fight function (now with parameter for enemy's name)
 var fight = function(enemy) {
 // repeat and execute as long as the enemy-robot is alive
   while (playerInfo.health > 0 && enemy.health > 0) {
-    fightOrSkip(); 
+    /// ask player if they'd like to fight or skip using the fightOrSkip function
+    if (fightOrSkip()) {
+      // if true, leave fight by breaking loop
+      break;
+    } 
     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
       
-    }
-
+  
     // generate random damage value based on player's attack power
     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
